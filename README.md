@@ -7,5 +7,5 @@ pues trabajará el codigo en ese branch, y hará los commit necesarios para real
 
 
 Una vez completado hará un pull-request, solicitando el pull hacia el Branch con su carnet
-Jessica María Molina Santos
+Jessica Molina
 
