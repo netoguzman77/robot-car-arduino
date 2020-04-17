@@ -7,6 +7,9 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + miembro : tipodedatos
 */
 
+#ifndef robot-car-arduino_h
+#define robot-car-arduino_h
+#include "arduino.h"
 
 /*************************    
 	Clase Ultrasonido
@@ -18,8 +21,22 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + medirCM() : int
 + Ultrasonido(byte*,byte*)
 ****************************/
+class Ultrasonido{
+    private:
+	  long distancia;
+	public:
+	   byte *pinEcho;
+	   byte *pinTrigger;
+
+      //constructor parametrizado recibe como parametros Echo y Trigger
+       Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
+       Ultrasonido();
 
 
+        //valor Maximo 350 cms
+        //Mide la distancia ..el sensor es preciso hasta 3.5m
+       int medirCM();
+};
 
 /*******************************************************************************
 						Clase Carro
@@ -67,3 +84,4 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 
 *******************************************************************************/
 
+#endif
