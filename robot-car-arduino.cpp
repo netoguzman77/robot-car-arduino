@@ -7,10 +7,27 @@ MICROPROGRAMACION 2020
 /* **************************************
 **      CLASE ULTRASONIDO
 ************************************** */
+//constructor parametrizado
+Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
+  pinTrigger=_pinTrigger;
+  pinEcho=_pinEcho;
+  pinMode(*pinTrigger, OUTPUT);
+  pinMode(*pinEcho, INPUT);
+}
+Ultrasonido::Ultrasonido(){}
+//hace medicion de distancia, devuelve hasta 350cm
+int Ultrasonido::medirCM(){
+    digitalWrite(*pinTrigger,LOW);
+    delayMicroseconds(4);
+    digitalWrite(*pinTrigger,HIGH);
+    delayMicroseconds(4);
+    digitalWrite(*pinTrigger,LOW);
+    distancia=pulseIn(*pinEcho,HIGH)/56.5812;
+    distancia=constrain(distancia,0,350);
+    return (int) distancia;
 
 
-
-
+}
 
 
 
@@ -19,7 +36,7 @@ MICROPROGRAMACION 2020
 ***********************************************************
 */
 //inicializando las variables staticas de la CLASE
-volatile unsigned int Carro::contaI=0;
+/*volatile unsigned int Carro::contaI=0;
 volatile unsigned int Carro::contaD=0;
 
 Carro::Carro(){
@@ -63,3 +80,4 @@ void Carro::contarRuedaD(){
     //si no tienes contadores haras un aproximado con delay(tiempo)
 
 
+*/
