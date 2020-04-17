@@ -15,4 +15,3 @@ void setup(){
      Serial.println(sensor2.medirCM());//llamado a sensor 2
      delay(5000);
  }
- //agregar
