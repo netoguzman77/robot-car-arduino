@@ -8,6 +8,16 @@ MICROPROGRAMACION 2020
 **      CLASE ULTRASONIDO
 ************************************** */
 
+Ultrasonido::Ultrasonido(){}
+
+//Constructor parametrisado
+Ultrasonido::Ultrasonido(byte *_pinTrigger,byte *_pinEcho){
+	pinTrigger=_pinTrigger;
+	pinEcho=_pinEcho;
+	pinMode(*pinTrigger, OUTPUT);
+	pinMode(*pinEcho, INPUT);
+}
+
 
 
 
