@@ -27,20 +27,15 @@ class Ultrasonido{
 	public:
 	byte *pinEcho;
 	byte *pinTrigger;
-	//Constructor parametrizado Recibe Trigger y Echo como byte
 
+	//Constructor parametrizado Recibe Trigger y Echo como byte
 	Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
 	Ultrasonido();
 	//Mide la distancia el sensor es preciso hasta 3.5 mts
 	//por lo tanto el valor maximo es 350 cms
-	
 	int medirCM();
-
-
-};
+	};
 #endif
-
-
 
 /*******************************************************************************
 						Clase Carro
