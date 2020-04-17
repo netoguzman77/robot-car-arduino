@@ -8,6 +8,8 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 */
 
 #ifndef robot-car-arduino_h
+
+
 #define robot-car-arduino_h
 #include "arduino.h"
 
@@ -32,7 +34,7 @@ class ultrasonido {
 		byte *pinTrigger;
 
 	//Constructor parametrizado Recibe como parametros trigger y Echo como byte
-	Ultrasonido(byte *_pinTrigger, *_pinEcho);
+	Ultrasonido(byte *_pinTrigger,byte *_pinEcho);
 	Ultrasonido();
 
 	//Mide la distancia el sensor es preciso hasta 5m

@@ -18,6 +18,17 @@ Ultrasonido::Ultrasonido(byte *_pinTrigger,byte *_pinEcho){
 	pinMode(*pinEcho, INPUT);
 }
 
+//hace la medicion de distancia devuelve cms de distancia hasta 350cm maxi
+int Ultrasonido::medirCM(){
+    digitalWrite(*pinTrigger, LOW);
+    delayMicroseconds(4);
+    digitalWrite(*pinEcho, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(*pinTrigger, LOW);
+    distancia=pulseIn(*pinEcho, HIGH)/56.5812;
+    distancia=constrain(distancia,0,350);
+    return (int) distancia;
+}
 
 
 
