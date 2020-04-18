@@ -6,6 +6,9 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 - indicam miembro privado
 + miembro : tipodedatos
 */
+#ifndef robot-car-arduino_h
+#define robot-car-ardino_h
+#include "arduino.h"
 
 
 /*************************    
