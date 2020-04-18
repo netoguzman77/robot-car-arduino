@@ -7,6 +7,9 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + miembro : tipodedatos
 */
 
+#ifndef robot-car-arduino_h
+#define robot-car-arduino_h
+#include "arduino.h"
 
 /*************************    
 	Clase Ultrasonido
@@ -19,7 +22,23 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + Ultrasonido(byte*,byte*)
 ****************************/
 
+class UltraSOnido
+{
+private:
+	long distancia;
 
+public:
+	byte *pinEcho;
+	byte *pinTrigger;
+
+	//Constructor parametrizado Recibe como parametros trigger y Echo como byte
+	Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
+	Ultrasonido();
+
+	//Mide la distancia el sensor es preciso hasta 5m
+	//por tanto el valor maximo son 350 cm
+	int medirCM();
+}
 
 /*******************************************************************************
 						Clase Carro
@@ -52,7 +71,6 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 	
 	//Constructor -- configura variables, sensores e interrupciones
 	+ Carro()
-
 	//acciona el motor, recibe como parametro la accion en la llanta izquierda y la llanta derecha
 	// el valor de cada llanta si es positivo movera la llanta hacia adelante
 	// si es negativo movera la llanta hacia atras
@@ -64,6 +82,7 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 	//usa los contadores de vuelta para la precision al girar
 	//tu decides si usas dos llantas para girar o solo una
 	+ girar(int grados): void
-
 *******************************************************************************/
+
+#endif
 
