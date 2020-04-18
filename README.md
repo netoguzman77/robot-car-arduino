@@ -1,7 +1,6 @@
 # robot-car-arduino
 proyecto de ejercicio para los alumnos
 
-Nombre:
 EDWIN ERNESTO FIGUEROA HERNÁNDEZ
 
 ##Indicaciones
