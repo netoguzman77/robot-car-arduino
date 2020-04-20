@@ -13,6 +13,11 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 #include "arduino.h"
 
 
+#ifndef robot-car-arduino_h
+#define robot-car-ardino_h
+#include "arduino.h"
+
+
 /*************************    
 	Clase Ultrasonido
 **************************
