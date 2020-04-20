@@ -15,6 +15,28 @@ Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
 }
 Ultrasonido::Ultrasonido(){}
 
+//constructor parametrizado
+Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
+    pinTrigger=_pinTrigger;
+    pinEcho=_pinEcho;
+    pinMode(*pinTrigger, OUTPUT);
+    pinMode(*pinEcho, INPUT);
+}
+Ultrasonido::Ultrasonido(){}
+
+
+//hace la medicion de distancia devuelve cms de distancia hasta 350cm maxi
+int Ultrasonido::medirCM(){
+    digitalWrite(*pinTrigger,LOW);
+    delayMicroseconds(4);
+    digitalWrite(*pinTrigger,HIGH);
+    delayMicroseconds(10);
+    digitalWrite(*pinTrigger,LOW);
+    distancia=pulseIn(*pinEcho,HIGH)/56.5812;
+    distancia=constrain(distancia,0,350);
+    return (int) distancia;
+
+}
 
 //hace la medicion de distancia devuelve cms de distancia hasta 350cm maxi
 int Ultrasonido::medirCM(){
@@ -52,11 +74,7 @@ int Ultrasonido::medirCM(){
 
 	//Agregamos este codigo para registrar las interrupciones
     //RISING indica que se disparara la interrupcion cuando el pin cambie de 0 a 1
-   // attachInterrupt(digitalPinToInterrupt(encoderI), Carro::contarRuedaI,RISING);
-    //attachInterrupt(digitalPinToInterrupt(encoderD), Carro::contarRuedaD,RISING);
-	//Carro::contaI=0; //contadores a cero
-    //Carro::contaD=0;
-}
+
 
 //METODOS QUE SE EJECUTAN CON LA INTERRUPCION
 //Son metodos Staticos pero static va en el .H
@@ -67,7 +85,7 @@ int Ultrasonido::medirCM(){
 void Carro::contarRuedaD(){
     if(Carro::contaD<65000) Carro::contaD++;
     else Carro::contaD=1;    
-}*/
+
 
 //metodo para mover el carro + adelante, - atras, potencia abs
 
