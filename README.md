@@ -6,3 +6,4 @@ en el presente repositorio, se encuentra un Branch con su carnet, dicho branch u
 pues trabajar√° el codigo en ese branch, y har√° los commit necesarios para realizar la entrega o tarea.
 
 Una vez completado har√° un pull-request, solicitando el pull hacia el Branch con su carnet
+###ANDREA ALEJANDRA CU…LLAR CH¡VEZ

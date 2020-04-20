@@ -1,12 +1,15 @@
 /*
   Libreria de RobotCar
 Universidad de El Salvador, Sede Santa Ana
-ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
+ciclo I-2020   DEFINA LAS SIGUIENTES CLASES
 + inidica miembro publico
 - indicam miembro privado
 + miembro : tipodedatos
 */
 
+#ifndef robot-car-arduino_h
+#define robot-car-arduino_h
+#include <Arduino.h>
 
 /*************************    
 	Clase Ultrasonido
@@ -19,8 +22,21 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + Ultrasonido(byte*,byte*)
 ****************************/
 
+class Ultrasonido{
+	private:
+		long distancia;
+	public:
+		byte *pinEcho;
+		byte *pinTrigger;
+	//Constructor recibe como parametros Trigger y Echo como byte
+	Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
+	Ultrasonido();
+	//Mide la distancia hasta 3.5 metros(350cm)
+		int medirCM();
+};
 
 
+#endif
 /*******************************************************************************
 						Clase Carro
 ********************************************************************************
@@ -66,4 +82,3 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 	+ girar(int grados): void
 
 *******************************************************************************/
-
