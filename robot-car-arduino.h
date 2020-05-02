@@ -39,7 +39,7 @@ Ultrasonido();
 int medirCM(); 
 };
 
-#endif
+
 
 /*******************************************************************************
 						Clase Carro
@@ -87,4 +87,51 @@ int medirCM();
 
 *******************************************************************************/
 
+class Carro{
+	public: 
+	byte encoderI=2; //pin del encoder de la llanta izquierda
+	byte encoderD=3; //pin del encoder de la llanta derecha
+	byte adelanteI=4;//pin avance adelante llanta izquierda
+	byte atrasI=5;	// pin de reversa llanda izquierda
+	byte potenciaI=6;//pin de potencia llanta izquierda pin PWM
+	byte adelanteD=7;//Adelante llanta derecha 
+	byte atrasD=8; // Atras llanta Derecha 
+	byte potenciaD=9; //potencia llanta Derecha pin PWM
+	byte sensortrigerC=10; //Sensor Ultrasonido Central Trigger
+	byte sensorechoC=11; //Sensor Ultrasonido Central Echo
+	byte sensortrigerI=12; //Sensor Ultrasonido Izquierda Trigger
+	byte sensorechoI=13; //Sensor Ultrasonido Izquierda Echo
+	byte sensortrigerD=14; //Sensor Ultrasonido Derecha Trigger
+	byte sensorechoD=15; //Sensor Ultrasonido Derecha Echo
+	byte potenciaMAX=200;
 
+
+	Ultrasonido UltraC;
+	Ultrasonido UltraI; //en el cpp se va instanciar y a referir 
+	Ultrasonido UltraD;
+
+	//DEFINIENDO LAS INTERRUPCIONES -- USAN MIEMBROS ESTATICOS 
+	static volatile unsigned int contaI; // contador de vueltas de la llanta izquierda
+	static volatile unsigned int contaD; // contador de vueltas de la llanta derecha
+	//CONTADORES DE RUEAS IZQUIERDA Y DERECHA
+	static void contarRuedaI(); //metodo a registrar con la interrupcion en constructor
+	static void contarRuedaD(); 
+
+	//Contructor -- configura variables, sensores e interrupciones
+	Carro(); 
+
+	//acciona el motor, recibe como parametro la accion en la llanta izquierda y la llanta derecha 
+	//el valor de cada llanta si es positivo movira la llanta hacie adelante 
+	//si es negativo movera la llanta hacia atras 
+	//el numero representa la potencia aplicada a cada llanta 
+	//los valores pueden ir desde -255 hasta 255
+	void mover(int Izquierda, int Derecha);
+
+	//gira la cantidad de grados especifica: - a la izquierda, + derecha
+	//usa los contadores de vuelta para la proteccion al girar 
+	//tu decides si usas dos llantas para girar o solo una 
+	void girar(int grados);
+
+};
+
+#endif
