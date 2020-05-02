@@ -7,6 +7,9 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + miembro : tipodedatos
 */
 
+#ifndef robot_car_arduino_h 
+#define robot_car_arduino_h 
+#include "Arduino.h"
 
 /*************************    
 	Clase Ultrasonido
@@ -18,7 +21,22 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + medirCM() : int
 + Ultrasonido(byte*,byte*)
 ****************************/
+class Ultrasonido {
+	private:
+		long distancia;
+	public:
+		byte *pinEcho;
+		byte *pinTrigger;
 
+	//Constructor
+	Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
+	Ultrasonido();
+
+	//Metodo para medir distancia
+
+	int medirCM();
+
+};
 
 
 /*******************************************************************************
@@ -67,3 +85,67 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 
 *******************************************************************************/
 
+class Carro{
+
+	public
+
+	//PINES CONTADORES DE VUELTAS LLANTAS
+	byte encoderI = 2; //pin del econder de la llanta izquierda
+	byte encoderD = 3; //pin del econder de la llanta derecha
+
+	//PINES MOVIMIENDOS LADO IZQUIERDO
+	byte potenciaI =6 // pin PWM de potencia llanta Izquierda 
+	byte adelanteI = 4; // pin avance adelante llanta Izquierda
+	byte atrasD = 8; //pin reversa llanta derecha
+
+	//PINES MOVIMIENTOS LADO DERECHO
+	byte potenciaD = 9; //pin PWM potencia llanta derecha
+	byte atrasI = 5; // pin reversa llanta Izquierda
+	byte adelanteD = 7; //pin avance adelante llanta derecha
+	
+	//PINES SENSORES TRIGGER
+	byte sensortriggerC = 10; // pin sensor ultrasonido central Trigger
+	byte sensortriggerD = 14; // pin sensor ultrasonido derecho Trigger
+	byte sensortriggerI = 12; // pin sensor ultrasonido izquierdo Trigger
+
+	//PINES SENSORES ECHO
+	byte sensorechoC = 11; // pin sensor ultrasonido central Echo
+	byte sensorechoD = 15; // pin sensor ultrasonido central Echo
+	byte sensorechoI = 13; // pin sensor ultrasonido central Echo
+
+	byte potenciaMAX =200; //limite regulador de la potencia maxima
+
+	//PUNTEROS PARA EL ULTRASONIDO
+	Ultrasonido UltraC;
+	Ultrasonido UltraI;
+	Ultrasonido UltraD;
+
+	//DEFINICION DE CONTADORES
+
+	//INTERRUPCIONES 
+	static volatile unsigned int contaI; //contador de vueltas llanta izquierda
+	static volatile unsigned int contaD; //contador de vueltas llanta derecha 
+
+	//CONTADORES DE VUELTAS
+	static void contarRuedaI();
+	static void contarRuedaD();
+
+	//CONSTRUCTOR DE LA CLASE CARRO
+	Carro();
+
+	//ACCIONES DEL CARRO
+	//acciona el motor, recibe como parametro la accion en la llanta izquierda y la llanta derecha
+	// el valor de cada llanta si es positivo movera la llanta hacia adelante
+	// si es negativo movera la llanta hacia atras
+	// el numero representara la potencia aplicada a cada llanta
+	// los valores pueden ir de -10 hasta 10 
+	void  mover(int Izquierda, int Derecha);
+	
+	//Gira la cantidad de grados especifica: - a la izquierda, + derecha
+	//usa los contadores de vuelta para la precision al girar
+	//tu decides si usas dos llantas para girar o solo una
+	void girar(int grados);
+
+};
+
+#endif
