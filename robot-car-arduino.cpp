@@ -1,6 +1,3 @@
-/*
-MICROPROGRAMACION 2020
-*/
 
 #include "arduino.h"
 #include "robot-car-arduino.h"
