@@ -38,7 +38,7 @@ class Ultrasonido{
 	// por tanto el valor maximo es 350 cm 
 	int medirCM();
 };
-
+#endif
 
 
 
