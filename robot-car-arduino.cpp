@@ -41,6 +41,7 @@ int Ultrasonido::medirCM(){
 ***********************************************************
 */
 //inicializando las variables staticas de la CLASE
+
 volatile unsigned int Carro::contaI=0;
 volatile unsigned int Carro::contaD=0;
 
@@ -138,6 +139,7 @@ void Carro::contarRuedaD(){
 	//tu decides si usas dos llantas para girar o solo una
     //Si tienes contadores de rueda los usaras para hacer el giro
     //si no tienes contadores haras un aproximado con delay(tiempo)
+
 
     void Carro::girar(int grados){
         float medioGiro=40;
