@@ -7,9 +7,7 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + miembro : tipodedatos
 */
 
-#ifndef robot-car-arduino_h
-
-
+#ifndef robot_car_arduino_h
 #define robot_car_arduino_h
 #include "arduino.h"
 
@@ -25,7 +23,7 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + Ultrasonido(byte*,byte*)
 ****************************/
 
-class ultrasonido {
+class Ultrasonido {
 	
 	private:
 		long distancia;
@@ -93,9 +91,9 @@ class ultrasonido {
 
 class Carro{
 
-	public:
-		byte encoderI = 2 //pin del encoder de la llanta izquierda
-		byte encoderD = 3 // pin del encoder de la llanta derecha
+		public:
+		byte encoderI = 2; //pin del encoder de la llanta izquierda
+		byte encoderD = 3; // pin del encoder de la llanta derecha
 		byte adelanteI =4; // pin avance adelante llanta Izquierda
 		byte atrasI =5;    // pin de reversa llanta izquierda
 		byte potenciaI =6; // pin de potencia llanta Izquierda pin PWM
