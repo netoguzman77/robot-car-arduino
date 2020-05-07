@@ -87,20 +87,21 @@ class Ultrasonido {
 
 class Carro{
 
-	public
+	public:
 
 	//PINES CONTADORES DE VUELTAS LLANTAS
 	byte encoderI = 2; //pin del econder de la llanta izquierda
 	byte encoderD = 3; //pin del econder de la llanta derecha
 
 	//PINES MOVIMIENDOS LADO IZQUIERDO
-	byte potenciaI =6 // pin PWM de potencia llanta Izquierda 
+	byte potenciaI =6; // pin PWM de potencia llanta Izquierda 
+	byte atrasI = 5; // pin reversa llanta Izquierda
 	byte adelanteI = 4; // pin avance adelante llanta Izquierda
-	byte atrasD = 8; //pin reversa llanta derecha
+	
 
 	//PINES MOVIMIENTOS LADO DERECHO
 	byte potenciaD = 9; //pin PWM potencia llanta derecha
-	byte atrasI = 5; // pin reversa llanta Izquierda
+	byte atrasD = 8; //pin reversa llanta derecha
 	byte adelanteD = 7; //pin avance adelante llanta derecha
 	
 	//PINES SENSORES TRIGGER
