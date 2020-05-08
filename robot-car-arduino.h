@@ -38,13 +38,60 @@ class Ultrasonido{
 	// por tanto el valor maximo es 350 cm 
 	int medirCM();
 };
-#endif
 
 
+class Carro{
+	public: 
+	byte encoderI=2; //pin del encoder de la llanta izquierda
+	byte encoderD=3; //pin del encoder de la llanta derecha
+	byte adelanteI=4; //pin avance adelante llanta izquierda
+	byte atrasI=5; //pin de reversa llanta izquierda
+	byte potenciaI=6; // pin de potencia llanta izquiera pin PWM
+	byte adelanteD=7; //Adelante llanta derecha
+	byte atrasD=8; //atras llanta derecha
+	byte potenciaD=9; //potencia llanta derecha pin PWM
+	byte sensortrigerC=10; //sensor ultrasonido central trigger
+	byte sensorechoC=11; //sensor ultrasonido central trigger
+	byte sensortrigerI=12; //sensor ultrasonido izquierda trigger
+	byte sensorechoI=13; //sensor ultrasonido izquierda trigger 
+	byte sensortrigerD=10; //sensor ultrasonido derecha trigger
+	byte sensorechoD=11; //sensor ultrasonido Derecha trigger
+	byte potenciaMAX=200;
+
+
+	Ultrasonido *Ultrac; //se declara como puntero
+	Ultrasonido *UltraI; //en el cpp se va a instancia y a referir 
+	Ultrasonido *UltraD;
+	//Ultrasonido UltraC //Forma alternativa como objeto
+	//Ultrasonido &UltraC //forma alternativa como alias
+
+	//Definiendo las interrupciones-- usan miembros estaticos
+	static volatile unsigned int contaI; //contador de las vueltas de la llanta izquierda
+	static volatile unsigned int contaD; //contador de las vueltas de la llanta Derecha
+	//Contadores de ruedas izquiera y derecha
+	static void contadorRuedaI(); //metodo a registrar con la interrupcion en constructor
+	static void contadorRuedaD();
+
+	//Constructor -- configura variables, sensores e interrupciones
+	Carro();
+
+	//acciona el motor, recibe como parametro la accion en la llanta izquierda y la llanta derecha
+	// el valor de cada llanta si es positivo movera la llanta hacia adelante
+	// si es negativo movera la llanta hacia atras
+	// el numero representara la potencia aplicada a cada llanta
+	// los valores pueden ir de -10 hasta 10
+	void mover(int Izquierda, int Derecha);
+
+	//Gira la cantidad de grados especifica: - a la izquierda, + derecha
+	//usa los contadores de vuelta para la precision al girar
+	//tu decides si usas dos llantas para girar o solo una
+	void girar(int grados);
+};
 
 /*******************************************************************************
 						Clase Carro
 ********************************************************************************
+
 + encoderI : byte = 2 //pin del encoder de la llanta izquierda
 + encoderD : byte = 3 // pin del encoder de la llanta derecha
 + adelanteI : byte =4; // pin avance adelante llanta Izquierda
@@ -86,5 +133,6 @@ class Ultrasonido{
 	//tu decides si usas dos llantas para girar o solo una
 	+ girar(int grados): void
 
-*******************************************************************************/
+*****************************************************************************/
 
+#endif
