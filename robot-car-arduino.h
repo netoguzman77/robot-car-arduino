@@ -59,9 +59,9 @@ class Carro{
 	byte potenciaMAX=200;
 
 
-	Ultrasonido *Ultrac; //se declara como puntero
-	Ultrasonido *UltraI; //en el cpp se va a instancia y a referir 
-	Ultrasonido *UltraD;
+	Ultrasonido UltraC; //se declara como puntero
+	Ultrasonido UltraI; //en el cpp se va a instancia y a referir 
+	Ultrasonido UltraD;
 	//Ultrasonido UltraC //Forma alternativa como objeto
 	//Ultrasonido &UltraC //forma alternativa como alias
 
@@ -69,8 +69,8 @@ class Carro{
 	static volatile unsigned int contaI; //contador de las vueltas de la llanta izquierda
 	static volatile unsigned int contaD; //contador de las vueltas de la llanta Derecha
 	//Contadores de ruedas izquiera y derecha
-	static void contadorRuedaI(); //metodo a registrar con la interrupcion en constructor
-	static void contadorRuedaD();
+	static void contarRuedaI(); //metodo a registrar con la interrupcion en constructor
+	static void contarRuedaD();
 
 	//Constructor -- configura variables, sensores e interrupciones
 	Carro();

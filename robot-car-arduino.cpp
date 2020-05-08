@@ -28,7 +28,115 @@ int Ultrasonido::medirCM(){
     return (int) distancia;
 }
 
+//inicialiando las variables staticas de la clase
+volatile unsigned int Carro::contaI=0;
+volatile unsigned int Carro::contaD=0;
 
+Carro::Carro(){
+    //configurando los pinMode de la potencia del carro
+    //encoder, adelante, atras, potencia
+    pinMode(encoderI, INPUT);
+    pinMode(encoderD, INPUT);
+    pinMode(adelanteI, OUTPUT);
+    pinMode(atrasI, OUTPUT);
+    pinMode(potenciaI, OUTPUT);
+    pinMode(adelanteD, OUTPUT);
+    pinMode(atrasD, OUTPUT);
+    pinMode(potenciaD, OUTPUT);
+
+    //Instanciando los sensores de ultrasonido y refiriendo
+    //invoco constructor parametrizado, new devuelve un puntero
+    UltraC= Ultrasonido(&sensortrigerC,&sensorechoC);
+    UltraI= Ultrasonido(&sensortrigerI,&sensorechoI);
+    UltraD= Ultrasonido(&sensortrigerD,&sensorechoD);
+
+    //agregamos este codigo para registrar las interrupciones
+    //Rissing indica que se dispara la interrupcion cuando el pin cambie de 0 a 1
+    attachInterrupt(digitalPinToInterrupt(encoderI), Carro::contarRuedaI,RISING);
+    attachInterrupt(digitalPinToInterrupt(encoderD), Carro::contarRuedaD,RISING);
+    Carro::contaI=0; //contadores a cero
+    Carro::contaD=0;
+}
+
+//Metodos que se ejecutan con la interrupcion
+//son metodos staticos pero static va en el .h
+void Carro::contarRuedaI(){
+    if(Carro::contaI<65000)Carro::contaI++;
+    else Carro::contaI=1;
+}
+void Carro::contarRuedaD(){
+    if(Carro::contaD<65000) Carro::contaD++;
+    else Carro::contaD=1;
+}
+
+    //metodo para mover el carro + adelante, - atras, potencia abs
+    void Carro::mover(int izquierda, int derecha){
+        izquierda= constrain(izquierda, -10, 10);
+        derecha= constrain(derecha, -10, 10);
+
+        //Rueda izquiera
+        if (izquierda<0){
+            digitalWrite(adelanteI, LOW);
+            digitalWrite(atrasI, HIGH);
+        }else if (izquierda>0){
+            digitalWrite(adelanteI, HIGH);
+            digitalWrite(atrasI, LOW);
+        }else {
+            digitalWrite(adelanteI, LOW);
+            digitalWrite(atrasI, LOW);
+        }
+
+        //Rueda derecha
+        if (derecha<0){
+            digitalWrite(adelanteD, LOW);
+            digitalWrite(atrasD, HIGH);
+        }else if(derecha>0){
+            digitalWrite(adelanteD, HIGH);
+            digitalWrite(atrasD, LOW);
+        }else {
+            digitalWrite(adelanteD, LOW);
+            digitalWrite(atrasD, LOW);
+        }
+
+    //Potencia indicada en pines PWM
+    //Ahustando la potencia
+    //si tienes contadores de agregar el ajuste para que avance recto
+
+        derecha=abs(derecha);
+        izquierda=abs(izquierda);
+
+        izquierda=map(izquierda,0,10,0,potenciaMAX);
+        derecha=map(derecha,0,10,0,potenciaMAX);
+        analogWrite(potenciaD,derecha);
+        analogWrite(potenciaI,izquierda);
+
+    }
+
+    //Gira la cantidad de grados especifica: -a la izquiera, + a la derecha 
+    //usa los contadores de vuelta para la precision al girar
+    //tu decides si usas dos llantas para girar o solo una 
+    //si tienes contadores de rueda los usaras para hacer el giro
+    //sino tieneas contadores haras un aproximado con delay(tiempo)
+    void Carro::girar(int grados){
+    float medioGiro=40;
+    int parar= grados*(medioGiro/180);
+    parar=abs(parar);
+    mover(0,0);
+    delay(100);
+    contaI=0;
+    contaD=0;
+    if(grados>0){
+        mover(10,-10);
+    }else if(grados<0){
+        mover(-10,10);
+    }
+    while(contaI + contaD < parar){
+
+    }
+
+    mover(0,0);
+    delay(100);
+}
 
 
 
