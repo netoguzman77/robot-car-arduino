@@ -16,6 +16,9 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 #define robot-car-ardino_h
 #include "arduino.h"
 
+#ifndef robot-car-arduino_h
+#define robot-car-arduino_h
+#include "arduino.h"
 
 /*************************    
 	Clase Ultrasonido
@@ -46,6 +49,22 @@ class Ultrasonido{
 };
 #endif
 
+
+class Ultrasonido{
+	private:
+		long distancia;
+	public:
+		byte *pinEcho;
+		byte *pinTrigger;
+//constructor parametrizado, recibe como parametros Trigger y Echo como byte
+Ultrasonido (byte *_pinTrigger, byte *_pinEcho);
+Ultrasonido();
+
+//Mide la distancia, el sensor es preciso hasta 3.5 metros
+// por tanto el valor maximo es 350 cmtros 
+
+int medirCM();
+}
 
 
 

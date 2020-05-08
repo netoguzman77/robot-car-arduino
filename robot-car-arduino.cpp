@@ -4,6 +4,29 @@ MICROPROGRAMACION 2020
 
 #include "arduino.h"
 #include "robot-car-arduino.h"
+
+//Constructor parametrizado
+Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
+    pinTrigger=_pinTrigger;
+    pinEcho=_pinEcho;
+    pinMode(*pinTrigger, OUTPUT);
+    pinMode(*pinEcho, INPUT);
+}
+Ultrasonido::Ultrasonido(){};
+
+//hace la medición de distancia, devuelve los cmtros de distancia hasta 350 cm maximo
+int Ultrasonido::medirCM{
+    digitalWrite(*pinTrigger, LOW);
+    delayMicroseconds(4);
+    digitalWrite(*pinTrigger, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(*pinTrigger, LOW);
+    distancia=pulseIn(*pinEcho,HIGH)/56.5812;
+    distancia=constrain(distancia,0,350)
+    return (int) distancia;
+}
+
+
 /* **************************************
 **      CLASE ULTRASONIDO
 ************************************** */
@@ -50,6 +73,8 @@ int Ultrasonido::medirCM(){
     return (int) distancia;
 
 }
+
+
 
 
 /*  **************************************************************
