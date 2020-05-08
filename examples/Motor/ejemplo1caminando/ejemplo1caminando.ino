@@ -8,6 +8,7 @@ void setup() {
 }
 
 void loop() {
+
   // put your main code here, to run repeatedly:
 m1.mover(10,10); //moverse hacia adelante
 delay(3000);
@@ -21,4 +22,5 @@ m1.mover(-10,-10); //ambas llantas hacia atras
 delay(3000);
 m1.mover(-5,-5); //ambas llantas hacia atras con una potencia de 125
 delay(3000);
+
 }
