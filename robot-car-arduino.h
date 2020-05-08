@@ -83,4 +83,53 @@ int medirCM();
 	+ girar(int grados): void
 
 *******************************************************************************/
+class Carro{
+//private:
+	/* data */
+public:
+	byte encoderI=2; //pin del encoder de la llanta izquierda
+	byte encoderD=3; //pin del encoder de la llanta derecha
+	byte adelanteI=4; //pin avance llanta izquierda
+	byte atrasI=5; //pin de reversa llanta izquierda
+	byte potenciaI=6; //pin de potencia llanta izquierda pin PWM
+	byte adelanteD=7; //adelante llanta derecha
+	byte atrasD=8; //atras llanta derecha
+	byte potenciaD=9; //potencia llanta derecha pin PWM
+	byte sensortrigerC=10; //Sensor Ultrasonido Central Trigger
+	byte sensorechoC=11; //Sensor Ultrasonido Central Echo
+	byte sensortrigerI=12; //Sensor Ultrasonido Izquierda Trigger
+	byte sensorechoI=13; //Sensor Ultrasonido Izquierda Echo
+	byte sensortrigerD=14; //Sensor Ultrasonido Derecha Trigger
+	byte sensorechoD=15; //Sensor Ultrasonido Derecha Echo
+	byte potenciaMAX=200; //
 
+	Ultrasonido UltraC;
+	Ultrasonido UltraI;
+	Ultrasonido UltraD;
+
+	//DEFINIENDO LAS INTERRUPCIONES USAN MIEMBROS ESTATICOS
+	static volatile unsigned int contaI; //contar las vueltas de la llanta Izquierda
+	static volatile unsigned int contaD; //contar las vueltas de la llanta Derecha
+
+	//CONTADORES DE RUEDAS IZQUIERDA Y DERECHA
+	static void contarRuedaI();
+	static void contarRuedaD();
+
+	//constructor -- configura variables, sensores e interrupciones
+	Carro();
+
+	//acciona el motorrecibe como parametro la accion en la llanta izquierda y la llanta derecha. El valor de cada llanta si es positivo moverá la llanata haciea adelante. Si es negativo moverá la llanta hacia atras.
+	//El numero representara la potencia aplicada a cada llanta
+	//los valores pueden ir de -255 hasta 255
+
+	void mover(int Izquierda, int Derecha);
+
+	//Gira la cantidad de grados especifica: - a la izquierda, + a la Derecha
+	//Usa los contadores de vuelta para la precision al girar
+	//Tu decides si usas las dos llantas para girar o solo una
+
+	void girar(int grados);
+
+};
+
+#endif
