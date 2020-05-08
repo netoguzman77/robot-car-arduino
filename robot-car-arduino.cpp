@@ -61,6 +61,7 @@ volatile unsigned int Carro::contaI=0;
 volatile unsigned int Carro::contaD=0;
 
 Carro::Carro(){
+    
 	//configurando los pinMode del la potencia del carro
     //encoder, adelante, atras, potencia
     pinMode(encoderI,INPUT);
