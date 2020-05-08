@@ -12,7 +12,6 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 #define robot-car-ardino_h
 #include "arduino.h"
 
-
 #ifndef robot-car-arduino_h
 #define robot-car-ardino_h
 #include "arduino.h"
