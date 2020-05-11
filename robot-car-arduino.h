@@ -67,6 +67,42 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 
 *******************************************************************************/
 
+class Carro{
+	public:
+
+	byte encoderI=2;
+	byte encoderD=3;
+	byte adelanteI=4;
+	byte atrasI=5;
+	byte potenciaI=6;
+	byte adelanteD=7;
+	byte atrasD=8;
+	byte potenciaD=9;
+	byte sensortrigerC=10;
+	byte sensorechoC=11;
+	byte sensortrigerI=12;
+	byte sensorechoI=13;
+	byte sensortrigerD=14;
+	byte sensorechoD=15;
+	byte potenciaMAX=200;
+
+	Ultrasonido *UltraC;
+	Ultrasonido *UltraI;
+	Ultrasonido *UltraD;
+
+	static volatile unsigned int contaI;
+	static volatile unsigned int contaD;
+
+	static void contarRuedaI();
+	static void contarRuedaD();
+
+	Carro();
+
+	void mover(int Izquierda, int Derecha);
+
+	void girar(int grados);	
+};
+
 /*
   Libreria de RobotCar
 Universidad de El Salvador, Sede Santa Ana
