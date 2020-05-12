@@ -7,32 +7,19 @@ ciclo I-2019   DEFINA LAS SIGUIENTES CLASES
 + miembro : tipodedatos
 */
 
-/*************************    
-	Clase Ultrasonido
-**************************
-- distancia : long
-+ pinEcho : byte*
-+ pinTrigger: byte*
-**************************
-+ medirCM() : int
-+ Ultrasonido(byte*,byte*)
-****************************/
-
 #ifndef robot - car - arduino_h
 #define robot -car - arduino_h
 #include <Arduino.h>
+
 class Ultrasonido
 {
-
 private:
 	long distancia;
 
 public:
 	byte *pinEcho;
 	byte *pinTrigger;
-
 	Ultrasonido(byte *_pinTrigger, byte *_pinEcho);
-
 	Ultrasonido();
 
 	int medirCM();
@@ -56,23 +43,22 @@ public:
 	byte sensorechoI = 13;	 //Sensor Ultrasonido Izquierda Echo
 	byte sensortrigerD = 14; //Sensor Ultrasonido Derecha Trigger
 	byte sensorechoD = 15;	 //Sensor Ultrasonido Derecha Echo
-	byte potenciaMAX = 200;
-	Ultrasonido UltraC; // Se declara como PUNTEROS
-	Ultrasonido UltraI; // en el cpp se va a instanciar y a referir
+	byte potenciaMAX = 200;	 //limite regulador de la potencia maxima
+	Ultrasonido UltraC;		 // Se declara como PUNTEROS
+	Ultrasonido UltraI;		 // en el cpp se va a instanciar y a referir
 	Ultrasonido UltraD;
 
-	static volatile unsigned int contaI;
-	static volatile unsigned int contaD;
+	static volatile unsigned int contaI; //contador de las vueltas de la llanta Izquierda
+	static volatile unsigned int contaD; //contador de las vueltas de la llanta Derecha
 
-	static void contrarRuedaI();
+	static void contarRuedaI();
 	static void contarRuedaD();
 
 	Carro();
-	//valores entre -10 y 10
+
 	void mover(int Izquierda, int Derecha);
 
 	void girar(int grados);
-
 };
 
 #endif
