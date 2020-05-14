@@ -85,4 +85,49 @@ class Ultrasonido {
 	+ girar(int grados): void
 
 *******************************************************************************/
+class Carro{
+
+	public: 
+	byte encoderI=2;
+	byte encoderD=3;
+	byte adelanteI=4;
+	byte atrasI=5;
+	byte potencia=6;
+	byte adelanteD=7;
+	byte atrasD=8;
+	byte potenciaD=9;
+	byte sensortrigerC=10;
+	byte sensorechoC=11;
+	byte sensortrigerI=12;
+	byte sensorechoI=13;
+	byte sensortrigerD=14;
+	byte sensorechoD=15;
+	byte potenciaMAX=200;
+
+	Ultrasonido UltraC;
+	Ultrasonido UltraI;
+	Ultrasonido UltraD;
+	/***
+	 * Interrupciones
+	*/
+	static volatile unsigned int contaI;	
+	static volatile unsigned int contaD;
+	/***
+	 * Ruedas 
+	*/
+	static void contarRuedaI();
+	static void contarRuedaD();
+
+	/**
+	 * Constructor configura las variables, sensores y las interrupciones
+	*/
+	Carro();
+
+	void mover(int Izquierda, int Derecha);
+
+	void girar(int grados);
+ 
+};
+
+
 #endif
