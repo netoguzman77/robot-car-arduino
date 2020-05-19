@@ -48,18 +48,27 @@ volatile unsigned int Carro::contaI=0;
 volatile unsigned int Carro::contaD=0;
 
 Carro::Carro(){
-	//configurando los pinMode del la potencia del carro
+    //configurando los pinMode del la potencia del carro
     //encoder, adelante, atras, potencia
+    pinMode(encoderI,INPUT);
+    pinMode(encoderD,INPUT);
+    pinMode(adelanteI,OUPUT);
+    pinMode(atrasI,OUPUT);
+    pinMode(potenciaI,OUPUT);
+    pinMode(adelanteD,OUPUT);
+    pinMode(atrasD,OUPUT);
+    pinMode(potenciaD,OUPUT);
+
     
-
-
     //instanciando los sensores ultrasonido y refiriendo
     // invoco constructor parametrizado, new devuelve un puntero
+    UltraC=Ultrasonido(&sensortrigerC,&sensorechoC);
+    UltraI=Ultrasonido(&sensortrigerI,&sensorechoI);
+    UltraD=Ultrasonido(&sensortrigerC,&sensorechoD);
+
     //UltraD->medir(); //para acceder a sus miembros uso -> por ser puntero
 
-    
-
-	//Agregamos este codigo para registrar las interrupciones
+    //Agregamos este codigo para registrar las interrupciones
     //RISING indica que se disparara la interrupcion cuando el pin cambie de 0 a 1
     attachInterrupt(digitalPinToInterrupt(encoderI), Carro::contarRuedaI,RISING);
     attachInterrupt(digitalPinToInterrupt(encoderD), Carro::contarRuedaD,RISING);
@@ -79,7 +88,51 @@ void Carro::contarRuedaD(){
 }
 
 //metodo para mover el carro + adelante, - atras, potencia abs
+//-10 y +10
+void Carro::mover(int izquierda, int derecha){
+    izquierda=constrain(izquierda, -10, 10);
+    derecha=constrain(derecha, -10, 10);
 
+    //Rueda izquierda
+    if (izquierda<0){
+        digitalWrite(adelanteI,LOW);
+        digitalWrite(atrasI,HIGH);
+    }
+    else if (izquierda>0){
+      digitalWrite(adelanteI,HIGH);
+      digitalWrite(atrasI,LOW);  
+    }
+    else{
+        digitalWrite(adelanteI,LOW);
+        digitalWrite(atrasI,LOW);
+    }
+
+    //Rueda derecha
+    if (derecha<0){
+        digitalWrite(adelanteD,LOW);
+        digitalWrite(atrasD,HIGH);
+    }
+    else if (derecha>0){
+      digitalWrite(adelanteD,HIGH);
+      digitalWrite(atrasD,LOW);  
+    }
+    else{
+        digitalWrite(adelanteD,LOW);
+        digitalWrite(atrasD,LOW);
+    }
+
+    //potencia indicada en pines PWN
+    //AJUSTANDO LA POTENCIA
+    // Si tienes contadores de vuelta aqui agregaras el ajuste para que avance recto
+
+    derecha=abs(derecha);
+    izquierda=abs(izquierda);
+
+    izquierda=map(izquierda,0,10,0,potenciaMAX);
+    derecha=map(derecha,0,10,0,potenciaMAX);
+    analogWrite(potenciaD,derecha);
+    analogWrite(potenciaI,izquierda);
+}
 
     //Gira la cantidad de grados especifica: - a la izquierda, + derecha
 	//usa los contadores de vuelta para la precision al girar
@@ -88,3 +141,24 @@ void Carro::contarRuedaD(){
     //si no tienes contadores haras un aproximado con delay(tiempo)
 
 
+void Carro::girar(int grados){
+    float medioGiro=40;
+    int parar=grados*(medioGiro/180);
+    parar=abs(parar);
+    mover(0,0);
+    delay(100);
+    contaI=0;
+    contaD=0;
+    if (grados>0){
+        mover(10,-10); // girar moviendo las dos llantas
+    }else if (grados<0){
+        mover(-10,10);
+    }
+    while (contaI + contaD < parar){
+
+    }
+    mover(0,0);
+    delay(100);
+
+        
+}
