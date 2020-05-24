@@ -4,9 +4,34 @@ MICROPROGRAMACION 2020
 
 #include "arduino.h"
 #include "robot-car-arduino.h"
+
+//Constructor parametrizado
+Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
+    pinTrigger=_pinTrigger;
+    pinEcho=_pinEcho;
+    pinMode(*pinTrigger, OUTPUT);
+    pinMode(*pinEcho, INPUT);
+}
+Ultrasonido::Ultrasonido(){};
+
+//hace la medición de distancia, devuelve los cmtros de distancia hasta 350 cm maximo
+int Ultrasonido::medirCM{
+    digitalWrite(*pinTrigger, LOW);
+    delayMicroseconds(4);
+    digitalWrite(*pinTrigger, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(*pinTrigger, LOW);
+    distancia=pulseIn(*pinEcho,HIGH)/56.5812;
+    distancia=constrain(distancia,0,350)
+    return (int) distancia;
+}
+
+
 /* **************************************
 **      CLASE ULTRASONIDO
 ************************************** */
+
+
 
 
 
@@ -25,14 +50,24 @@ volatile unsigned int Carro::contaD=0;
 Carro::Carro(){
 	//configurando los pinMode del la potencia del carro
     //encoder, adelante, atras, potencia
-    
+
+    pinMode(encoderI, INPUP);
+    pinMode(encoderD, INPUP);
+    pinMode(adelanteI, OUTPUP);
+    pinMode(adelanteD, OUTUP);
+    pinMode(atrasI, OUTPUP);
+    pinMode(atrasD, OUTPUP);
+    pinMode(potenciaI, OUTPUP);
+    pinMode(potenciaD, OUTPUP);
 
 
     //instanciando los sensores ultrasonido y refiriendo
     // invoco constructor parametrizado, new devuelve un puntero
     //UltraD->medir(); //para acceder a sus miembros uso -> por ser puntero
 
-    
+    UltraC= Ultrasonido(&sensortrigerC, &sensorechoC);
+    UltraI= Ultrasonido(&sensortrigerI, &sensorechoI);
+    UltraD= Ultrasonido(&sensortrigerD, &sensorechoD);
 
 	//Agregamos este codigo para registrar las interrupciones
     //RISING indica que se disparara la interrupcion cuando el pin cambie de 0 a 1
@@ -40,6 +75,8 @@ Carro::Carro(){
     attachInterrupt(digitalPinToInterrupt(encoderD), Carro::contarRuedaD,RISING);
 	Carro::contaI=0; //contadores a cero
     Carro::contaD=0;
+
+    
 }
 
 //METODOS QUE SE EJECUTAN CON LA INTERRUPCION
