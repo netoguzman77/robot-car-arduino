@@ -106,6 +106,18 @@ class Carro{
 
 	Ultrasonido *UltraC;
 	Ultrasonido *UltraI;
-	Ultrasonido *UltraD;		
+	Ultrasonido *UltraD;
 
-}
+	static volatile unsigned int contaI;
+	static volatile unsigned int contaD;
+
+	static void contarRuedaI();
+	static void contarRuedaD();
+
+	Carro();
+	     
+	void mover(int izquierda, int derecha);
+
+	void girar(int grados);
+
+};
